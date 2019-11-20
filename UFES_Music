@@ -1,0 +1,1175 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+typedef struct{
+    char* nome;
+    char* album;
+    char* artista1;
+    char* artista2;
+    char* artista3;
+    char* compositor;
+    int* num_compositores;
+    char* genero;
+    char* gravadora;
+    int* tipo;
+    int* cod;
+    int* tamanho;
+}Midia;
+
+typedef struct{
+    char* nome;
+    Midia* midia[20];
+    int* n_midias;
+    int* cod;
+}Album;
+
+
+typedef struct{
+    Midia* midia[50];
+    int* tipo;
+    int* n_midias;
+    char* nome;
+}Playlist;
+
+typedef struct{
+    char* nome;
+    int* num_playlists;
+    Playlist* playlist[20];
+}User;
+
+Midia* EnderecoMidiaPlaylistUser(User** user, int n_user, int n_playlist, int n_midia){
+    return (user[n_user] -> playlist[n_playlist] -> midia[n_midia]);
+}
+
+void RecebeEnderecoMidiaPlaylistUser(User** user, int n_user, int n_playlist, int n_midia, Midia* aux_midia){
+    user[n_user] -> playlist[n_playlist] -> midia[n_midia] = aux_midia;
+}
+
+int* EnderecoTipoPlaylistUser(User** user, int n_user, int n_playlist){
+    return (user[n_user] -> playlist[n_playlist] -> tipo);
+}
+
+void RecebeEnderecoTipoPlaylistUser(User** user, int n_user, int n_playlist,int* tipo){
+    user[n_user] -> playlist[n_playlist] -> tipo = tipo;
+}
+
+char* EnderecoNomePlaylistUser(User** user, int n_user, int n_playlist){
+    return (user[n_user] -> playlist[n_playlist] -> nome);
+}
+
+void RecebeEnderecoNomePlaylistUser(User** user, int n_user, int n_playlist,char* nome){
+    user[n_user] -> playlist[n_playlist] -> nome = nome;
+}
+
+int* EnderecoNMidiasPlaylistUser(User** user, int n_user, int n_playlist){
+    return (user[n_user] -> playlist[n_playlist] -> n_midias);
+}
+
+void RecebeEnderecoNMidiasPlaylistUser(User** user, int n_user, int n_playlist, int* n_midias){
+    user[n_user] -> playlist[n_playlist] -> n_midias = n_midias;
+}
+
+char* EnderecoNomeUser (User** user, int n_usuario){
+    return (user[n_usuario] -> nome);
+}
+
+void RecebeEnderecoNomeUser (User** user, int n_usuario, char* pointer_char){
+    user[n_usuario] -> nome = pointer_char;
+}
+
+int* EnderecoNumeroPlaylistsUser (User** user, int n_usuario){
+    return (user[n_usuario] -> num_playlists);
+}
+
+void RecebeEnderecoNumeroPlaylistsUser (User** user, int n_usuario, int* pointer_int){
+    user[n_usuario] -> num_playlists = pointer_int;
+}
+
+Playlist* EnderecoPlaylistUser (User** user, int n_usuario, int n_playlist){
+    return (user[n_usuario] -> playlist[n_playlist]);
+}
+
+void RecebeEnderecoPlaylistUser (User** user, int n_usuario, int n_playlist, Playlist* pointer_playlist[20]){
+    user[n_usuario] -> playlist[n_playlist] = pointer_playlist[n_playlist];
+}
+
+int* EnderecoNumeroMidiasAlbum (Album** album, int n_album){
+    return (album[n_album] -> n_midias);
+}
+
+void RecebeEnderecoNumeroMidiasAlbum (Album** album, int n_album, int* pointer_int){
+    album[n_album] -> n_midias = pointer_int;
+}
+
+char* EnderecoNomeMidia (Album** album, int n_album, int n_midia){
+    return (album[n_album] -> midia[n_midia] -> nome);
+}
+
+void RecebeEnderecoNomeMidia (Album** album, int n_album, int n_midia, char* pointer_char){
+    album[n_album] -> midia[n_midia] -> nome = pointer_char;
+}
+
+Midia* EnderecoMidia (Album** album, int n_album, int n_midia){
+    return (album[n_album] -> midia[n_midia]);
+}
+
+void RecebeEnderecoMidia (Album** album, int n_album, int n_midia, Midia* pointer_midia){
+    album[n_album] -> midia[n_midia] = pointer_midia;
+}
+
+char* EnderecoNomeAlbum(Album** album, int n_album){
+    return (album[n_album] -> nome);
+}
+
+void RecebeEnderecoNomeAlbum (Album** album, int n_album, int n_midia, char* pointer_char){
+    album[n_album] -> nome = pointer_char;
+}
+
+char* EnderecoNomeAlbumMidia(Album** album, int n_album, int n_midia){
+    return (album[n_album] -> midia[n_midia] -> album);
+}
+
+void RecebeEnderecoNomeAlbumMidia (Album** album, int n_album, int n_midia, char* pointer_char){
+    album[n_album] -> midia[n_midia] -> album = pointer_char;
+}
+
+char* EnderecoArtista1(Album** album, int n_album, int n_midia){
+    return (album[n_album] -> midia[n_midia] -> artista1);
+}
+
+void RecebeEnderecoArtista1 (Album** album, int n_album, int n_midia, char* pointer_char){
+    album[n_album] -> midia[n_midia] -> artista1 = pointer_char;
+}
+
+char* EnderecoArtista2(Album** album, int n_album, int n_midia){
+    return (album[n_album] -> midia[n_midia] -> artista2);
+}
+
+void RecebeEnderecoArtista2 (Album** album, int n_album, int n_midia, char* pointer_char){
+    album[n_album] -> midia[n_midia] -> artista2 = pointer_char;
+}
+
+char* EnderecoArtista3(Album** album, int n_album, int n_midia){
+    return (album[n_album] -> midia[n_midia] -> artista3);
+}
+
+void RecebeEnderecoArtista3 (Album** album, int n_album, int n_midia, char* pointer_char){
+    album[n_album] -> midia[n_midia] -> artista3 = pointer_char;
+}
+
+char* EnderecoCompositor(Album** album, int n_album, int n_midia){
+    return (album[n_album] -> midia[n_midia] -> compositor);
+}
+
+void RecebeEnderecoCompositor (Album** album, int n_album, int n_midia, char* pointer_char){
+    album[n_album] -> midia[n_midia] -> compositor = pointer_char;
+}
+
+char* EnderecoGenero(Album** album, int n_album, int n_midia){
+    return (album[n_album] -> midia[n_midia] -> genero);
+}
+
+void RecebeEnderecoGenero (Album** album, int n_album, int n_midia, char* pointer_char){
+    album[n_album] -> midia[n_midia] -> genero = pointer_char;
+}
+
+char* EnderecoGravadora(Album** album, int n_album, int n_midia){
+    return (album[n_album] -> midia[n_midia] -> gravadora);
+}
+
+void RecebeEnderecoGravadora (Album** album, int n_album, int n_midia, char* pointer_char){
+    album[n_album] -> midia[n_midia] -> gravadora = pointer_char;
+}
+
+int* EnderecoTipo(Album** album, int n_album, int n_midia){
+    return (album[n_album] -> midia[n_midia] -> tipo);
+}
+
+void RecebeEnderecoTipo (Album** album, int n_album, int n_midia, int* pointer_int){
+    album[n_album] -> midia[n_midia] -> tipo = pointer_int;
+}
+
+int* EnderecoCod(Album** album, int n_album, int n_midia){
+    return (album[n_album] -> midia[n_midia] -> cod);
+}
+
+void RecebeEnderecoCod (Album** album, int n_album, int n_midia, int* pointer_int){
+    album[n_album] -> midia[n_midia] -> cod = pointer_int;
+}
+
+int* EnderecoNCompositores(Album** album, int n_album, int n_midia){
+    return (album[n_album] -> midia[n_midia] -> num_compositores);
+}
+
+void RecebeEnderecoNCompositores (Album** album, int n_album, int n_midia, int* pointer_int){
+    album[n_album] -> midia[n_midia] -> num_compositores = pointer_int;
+}
+
+int* EnderecoTamanho(Album** album, int n_album, int n_midia){
+    return (album[n_album] -> midia[n_midia] -> tamanho);
+}
+
+void RecebeEnderecoTamanho (Album** album, int n_album, int n_midia, int* pointer_int){
+    album[n_album] -> midia[n_midia] -> tamanho = pointer_int;
+}
+
+void AdicionaMidiaArquivo (int* n_albuns, Album** album,int* n_total_midias){
+    int n_mus,aux_mus, ini = 1;
+    FILE* cFile;
+    cFile = fopen("config.txt","r");
+    fscanf(cFile,"%d", &n_mus);
+    aux_mus = n_mus;
+    fscanf(cFile,"%*c");
+    while(aux_mus > 0){
+        int i, n_midia;
+        char nome_album[50], aux_string[50];
+        Midia* aux_midia;
+        char* aux_pointer, aux_pointer2;
+        int* aux_pint;
+        fscanf(cFile,"%[^\n]%*c", nome_album);
+        for (i=0; i<*n_albuns; i++){
+            aux_pointer = EnderecoNomeAlbum(album,i);
+            if (!(strcmp(aux_pointer,nome_album))){
+                aux_pint = EnderecoNumeroMidiasAlbum(album,i);
+                n_midia = *(aux_pint);
+                aux_midia = (Midia *) malloc (sizeof(Midia));
+                RecebeEnderecoMidia (album,i,n_midia,aux_midia);           
+                aux_pointer = (char*) malloc (sizeof(char)*20);
+                RecebeEnderecoNomeAlbumMidia(album,i,n_midia,aux_pointer);           
+                aux_pointer = (char*) malloc (sizeof(char)*20);
+                RecebeEnderecoArtista1(album,i,n_midia,aux_pointer);           
+                aux_pointer = (char*) malloc (sizeof(char)*20);
+                RecebeEnderecoArtista2(album,i,n_midia,aux_pointer);           
+                aux_pointer = (char*) malloc (sizeof(char)*20);
+                RecebeEnderecoArtista3(album,i,n_midia,aux_pointer);
+                aux_pointer = (char*) malloc (sizeof(char)*20);
+                RecebeEnderecoGenero(album,i,n_midia,aux_pointer);
+                aux_pointer = (char*) malloc (sizeof(char)*20);
+                RecebeEnderecoGravadora(album,i,n_midia,aux_pointer);           
+                aux_pointer = (char*) malloc (sizeof(char)*20);
+                RecebeEnderecoNomeMidia(album,i,n_midia,aux_pointer);
+                aux_pointer = (char*) malloc (sizeof(char)*20);
+                RecebeEnderecoCompositor(album,i,n_midia,aux_pointer);
+                aux_pint = (int*) malloc (sizeof(int));
+                RecebeEnderecoTipo(album,i,n_midia,aux_pint);
+                aux_pint = (int*) malloc (sizeof(int));
+                RecebeEnderecoCod(album,i,n_midia,aux_pint);
+                aux_pint = (int*) malloc (sizeof(int));
+                RecebeEnderecoTamanho(album,i,n_midia,aux_pint);
+                aux_pint = (int*) malloc (sizeof(int));
+                RecebeEnderecoNCompositores(album,i,n_midia,aux_pint);
+
+                strcpy(album[i] -> midia[*(album[i] -> n_midias)] -> album,album[i] -> nome);
+
+                aux_pointer = (char*) malloc (sizeof(char)*20);
+                aux_pointer = EnderecoNomeMidia(album,i,n_midia);
+                fscanf(cFile,"%[^\n]%*c", aux_pointer);
+                aux_pint = EnderecoTipo(album,i,n_midia);
+                fscanf(cFile,"%d", aux_pint);
+                fscanf(cFile,"%*c");
+                aux_pointer = EnderecoArtista1(album,i,n_midia);
+                fscanf(cFile,"%[^\n]%*c", aux_pointer);
+                aux_pint = EnderecoTamanho(album,i,n_midia);
+                fscanf(cFile,"%d", aux_pint);
+                fscanf(cFile,"%*c");
+                char resp;
+                fscanf(cFile,"%[^\n]%*c", &resp);
+                if (resp == 'y'){
+                    aux_pointer = EnderecoArtista2(album,i,n_midia);
+                    fscanf(cFile,"%[^\n]%*c", aux_pointer);
+                    aux_pint = EnderecoNCompositores(album,i,n_midia);
+                    *aux_pint = 2;
+                    fscanf(cFile,"%[^\n]%*c", &resp);
+                    if (resp == 'y'){
+                        aux_pointer = EnderecoArtista3(album,i,n_midia);
+                        fscanf(cFile,"%[^\n]%*c", aux_pointer);
+                        aux_pint = EnderecoNCompositores(album,i,n_midia);
+                        *aux_pint = 3;
+                    }
+                }
+                else (*album[i] -> midia[*(album[i] -> n_midias)] -> num_compositores) = 1;
+                fscanf(cFile,"%[^\n]%*c", album[i] -> midia[*(album[i] -> n_midias)] -> compositor);
+                fscanf(cFile,"%[^\n]%*c", album[i] -> midia[*(album[i] -> n_midias)] -> genero);
+                fscanf(cFile,"%[^\n]%*c", album[i] -> midia[*(album[i] -> n_midias)] -> gravadora);
+                (*album[i] -> midia[*(album[i] -> n_midias)] -> cod) = (*n_total_midias);
+                (*n_total_midias)++;
+                (*album[i] -> n_midias)++;           
+                ini = 0;
+                n_mus--;
+                aux_mus--;
+                break;
+            }
+        }
+        if (ini){
+            int b = (*n_albuns) + 1;
+            album = realloc (album,(sizeof(Album*) * b));
+            album[*n_albuns] = (Album*) malloc (sizeof(Album));
+            album[*n_albuns] -> nome = (char*) malloc (sizeof(char)*20);
+            album[*n_albuns] -> n_midias = (int*) malloc (sizeof(int));
+            album[*n_albuns] -> cod = (int*) malloc (sizeof(int));
+            (*album[*n_albuns] -> n_midias) = 0;
+            (*album[*n_albuns] -> cod) = (*n_albuns);
+            album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] = (Midia*) malloc (sizeof(Midia));
+
+            album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> album = (char*) malloc (sizeof(char)*20);
+            album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> artista1 = (char*) malloc (sizeof(char)*20);
+            album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> artista2 = (char*) malloc (sizeof(char)*20);
+            album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> artista3 = (char*) malloc (sizeof(char)*20);
+            album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> compositor = (char*) malloc (sizeof(char)*20);
+            album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> genero = (char*) malloc (sizeof(char)*20);
+            album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> gravadora = (char*) malloc (sizeof(char)*20);
+            album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> nome = (char*) malloc (sizeof(char)*20);
+            album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> tipo = (int*) malloc (sizeof(int));
+            album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> cod = (int*) malloc (sizeof(int));
+            album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> tamanho = (int*) malloc (sizeof(int));
+            album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> num_compositores = (int*) malloc (sizeof(int));
+
+            strcpy(album[*n_albuns] -> nome, nome_album);
+            strcpy(album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> album ,album[*n_albuns] -> nome);
+
+            fscanf(cFile,"%[^\n]%*c", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> nome);
+            fscanf(cFile,"%d", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> tipo);
+            fscanf(cFile,"%*c");
+            fscanf(cFile,"%[^\n]%*c", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> artista1);
+            fscanf(cFile,"%d", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> tamanho);
+            fscanf(cFile,"%*c");
+            char resp;
+            fscanf(cFile,"%[^\n]%*c", &resp);
+            if (resp == 'y'){
+                fscanf(cFile,"%[^\n]%*c", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> artista2);
+                fscanf(cFile,"%[^\n]%*c", &resp);
+                if (resp == 'y'){
+                    fscanf(cFile,"%[^\n]%*c", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> artista3);
+                }
+            }
+            fscanf(cFile,"%[^\n]%*c", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> compositor);
+            fscanf(cFile,"%[^\n]%*c", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> genero);
+            fscanf(cFile,"%[^\n]%*c", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> gravadora);
+            (*album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> cod) = (*n_total_midias);
+            (*n_total_midias)++;
+            (*album[*n_albuns] -> n_midias)++;
+            (*n_albuns)++;
+            n_mus--;
+            aux_mus--;
+            ini = 1;
+        }
+        ini = 1;
+    }
+    fclose(cFile);
+}
+
+void AdicionaMidia (int* n_albuns, Album** album,int* n_total_midias){
+    int i, n_midia;
+    char nome_album[50], aux_string[50];
+    Midia* aux_midia;
+    char* aux_pointer, aux_pointer2;
+    int* aux_pint;
+    printf("Informe o nome do album da musica:\n");
+    scanf("%[^\n]%*c", nome_album);
+    for (i=0; i<*n_albuns; i++){
+        aux_pointer = EnderecoNomeAlbum(album,i);
+        if (!(strcmp(aux_pointer,nome_album))){
+            aux_pint = EnderecoNumeroMidiasAlbum(album,i);
+            n_midia = *(aux_pint);
+            aux_midia = (Midia *) malloc (sizeof(Midia));
+            RecebeEnderecoMidia (album,i,n_midia,aux_midia);           
+            aux_pointer = (char*) malloc (sizeof(char)*20);
+            RecebeEnderecoNomeAlbumMidia(album,i,n_midia,aux_pointer);           
+            aux_pointer = (char*) malloc (sizeof(char)*20);
+            RecebeEnderecoArtista1(album,i,n_midia,aux_pointer);           
+            aux_pointer = (char*) malloc (sizeof(char)*20);
+            RecebeEnderecoArtista2(album,i,n_midia,aux_pointer);           
+            aux_pointer = (char*) malloc (sizeof(char)*20);
+            RecebeEnderecoArtista3(album,i,n_midia,aux_pointer);
+            aux_pointer = (char*) malloc (sizeof(char)*20);
+            RecebeEnderecoGenero(album,i,n_midia,aux_pointer);
+            aux_pointer = (char*) malloc (sizeof(char)*20);
+            RecebeEnderecoGravadora(album,i,n_midia,aux_pointer);           
+            aux_pointer = (char*) malloc (sizeof(char)*20);
+            RecebeEnderecoNomeMidia(album,i,n_midia,aux_pointer);
+            aux_pointer = (char*) malloc (sizeof(char)*20);
+            RecebeEnderecoCompositor(album,i,n_midia,aux_pointer);
+            aux_pint = (int*) malloc (sizeof(int));
+            RecebeEnderecoTipo(album,i,n_midia,aux_pint);
+            aux_pint = (int*) malloc (sizeof(int));
+            RecebeEnderecoCod(album,i,n_midia,aux_pint);
+            aux_pint = (int*) malloc (sizeof(int));
+            RecebeEnderecoTamanho(album,i,n_midia,aux_pint);
+            aux_pint = (int*) malloc (sizeof(int));
+            RecebeEnderecoNCompositores(album,i,n_midia,aux_pint);
+            
+            strcpy(album[i] -> midia[*(album[i] -> n_midias)] -> album,album[i] -> nome);
+        
+            printf("Informe o nome da midia:\n");
+            aux_pointer = (char*) malloc (sizeof(char)*20);
+            aux_pointer = EnderecoNomeMidia(album,i,n_midia);
+            scanf("%[^\n]%*c", aux_pointer);
+            printf("Informe o tipo da midia:\n");
+            aux_pint = EnderecoTipo(album,i,n_midia);
+            scanf("%d", aux_pint);
+            scanf("%*c");
+            printf("Informe o tamanho da midia(em segundos):\n");
+            aux_pint = EnderecoTamanho(album,i,n_midia);
+            scanf("%d", aux_pint);
+            scanf("%*c");
+            printf("Informe o nome do artista:\n");
+            aux_pointer = EnderecoArtista1(album,i,n_midia);
+            scanf("%[^\n]%*c", aux_pointer);
+            scanf("%*c");
+            printf("A midia possui algum outro artista? [y/n]:\n");
+            char resp;
+            scanf("%[^\n]%*c", &resp);
+            scanf("%*c");
+            if (resp == 'y'){
+                printf("Informe o nome do artista:\n");
+                aux_pointer = EnderecoArtista2(album,i,n_midia);
+                scanf("%[^\n]%*c", aux_pointer);
+                aux_pint = EnderecoNCompositores(album,i,n_midia);
+                *aux_pint = 2;
+                printf("A midia possui algum outro artista? [y/n]:\n");
+                scanf("%[^\n]%*c", &resp);
+                scanf("%*c");
+                if (resp == 'y'){
+                    printf("Informe o nome do artista:\n");
+                    aux_pointer = EnderecoArtista3(album,i,n_midia);
+                    scanf("%[^\n]%*c", aux_pointer);
+                    aux_pint = EnderecoNCompositores(album,i,n_midia);
+                    *aux_pint = 3;
+                }
+            }
+            else (*album[i] -> midia[*(album[i] -> n_midias)] -> num_compositores) = 1;
+            printf("Informe o nome do compositor:\n");
+            scanf("%[^\n]%*c", album[i] -> midia[*(album[i] -> n_midias)] -> compositor);
+            printf("Informe o genero da midia:\n");
+            scanf("%[^\n]%*c", album[i] -> midia[*(album[i] -> n_midias)] -> genero);
+            printf("Informe a gravadora da midia:\n");
+            scanf("%[^\n]%*c", album[i] -> midia[*(album[i] -> n_midias)] -> gravadora);
+            (*album[i] -> midia[*(album[i] -> n_midias)] -> cod) = (*n_total_midias);
+            (*n_total_midias)++;
+            (*album[i] -> n_midias)++;           
+            return;
+        }
+    }
+    int b = (*n_albuns) + 1;
+    album = realloc (album,(sizeof(Album*) * b));
+    album[*n_albuns] = (Album*) malloc (sizeof(Album));
+    album[*n_albuns] -> nome = (char*) malloc (sizeof(char)*20);
+    album[*n_albuns] -> n_midias = (int*) malloc (sizeof(int));
+    album[*n_albuns] -> cod = (int*) malloc (sizeof(int));
+    (*album[*n_albuns] -> n_midias) = 0;
+    (*album[*n_albuns] -> cod) = (*n_albuns);
+    album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] = (Midia*) malloc (sizeof(Midia));
+
+    album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> album = (char*) malloc (sizeof(char)*20);
+    album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> artista1 = (char*) malloc (sizeof(char)*20);
+    album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> artista2 = (char*) malloc (sizeof(char)*20);
+    album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> artista3 = (char*) malloc (sizeof(char)*20);
+    album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> compositor = (char*) malloc (sizeof(char)*20);
+    album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> genero = (char*) malloc (sizeof(char)*20);
+    album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> gravadora = (char*) malloc (sizeof(char)*20);
+    album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> nome = (char*) malloc (sizeof(char)*20);
+    album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> tipo = (int*) malloc (sizeof(int));
+    album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> cod = (int*) malloc (sizeof(int));
+    album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> tamanho = (int*) malloc (sizeof(int));
+    album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> num_compositores = (int*) malloc (sizeof(int));
+
+    strcpy(album[*n_albuns] -> nome, nome_album);
+    strcpy(album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> album ,album[*n_albuns] -> nome);
+
+    printf("Informe o nome da midia:\n");
+    scanf("%[^\n]%*c", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> nome);
+    printf("Informe o tipo da midia:\n");
+    scanf("%d", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> tipo);
+    scanf("%*c");
+    printf("Informe o nome do artista:\n");
+    scanf("%[^\n]%*c", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> artista1);
+    printf("Informe o tamanho da midia(em segundos):\n");
+    scanf("%d", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> tamanho);
+    scanf("%*c");
+    printf("A midia possui algum outro artista? [y/n]:\n");
+    char resp;
+    scanf("%[^\n]%*c", &resp);
+    if (resp == 'y'){
+        printf("Informe o nome do artista:\n");
+        scanf("%[^\n]%*c", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> artista2);
+        printf("A midia possui algum outro artista? [y/n]:\n");
+        scanf("%[^\n]%*c", &resp);
+        if (resp == 'y'){
+            printf("Informe o nome do artista:\n");
+            scanf("%[^\n]%*c", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> artista3);
+        }
+    }
+    printf("Informe o nome do compositor:\n");
+    scanf("%[^\n]%*c", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> compositor);
+    printf("Informe o genero da midia:\n");
+    scanf("%[^\n]%*c", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> genero);
+    printf("Informe a gravadora da midia:\n");
+    scanf("%[^\n]%*c", album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> gravadora);
+    (*album[*n_albuns] -> midia[*(album[*n_albuns] -> n_midias)] -> cod) = (*n_total_midias);
+    (*n_total_midias)++;
+    (*album[*n_albuns] -> n_midias)++;
+    (*n_albuns)++;
+}
+
+void Imprimemidia(int* n_albuns, Album** album,int i,int j){
+    
+    printf("\n\n\n%s",album[i] -> midia[j] -> nome);
+    int aux_lenght;
+    aux_lenght = 20 - strlen(album[i] -> midia[j] -> nome);
+    if(aux_lenght>0){
+        while(aux_lenght>0){
+            printf(" ");
+            aux_lenght--;
+        }
+    }
+    printf("    ");
+    printf("%s",album[i] -> midia[j] -> album);
+    aux_lenght = 20 - strlen(album[i] -> midia[j] -> album);
+    if(aux_lenght>0){
+        while(aux_lenght>0){
+            printf(" ");
+            aux_lenght--;
+        }
+    }
+    printf("    ");
+    int m,s;
+    m = (*(album[i] -> midia[j] -> tamanho))/60;
+    s = (*(album[i] -> midia[j] -> tamanho))%60;
+    printf("%02d:%02d",m,s);
+    printf("    ");
+    printf("%03d\n\n",*(album[i] -> midia[j] -> cod));
+    
+}
+
+void ImprimeAlbum(int* n_albuns, Album** album, int i){
+    printf("\n\n\n%s",album[i] -> nome);
+    int aux_lenght;
+    aux_lenght = 20 - strlen(album[i] -> nome);
+    if(aux_lenght>0){
+        while(aux_lenght>0){
+            printf(" ");
+            aux_lenght--;
+        }
+    }
+    printf("    ");
+    printf("%03d\n\n",*(album[i] -> cod));  
+}
+
+void AcessaMidia (int* n_albuns, Album** album, int cod){
+    int i,j;
+    int aux;
+    int val = 1;
+    for (i=0; i<*n_albuns;i++){
+        for (j=0; j<*(album[i] -> n_midias); j++){
+            if(*(album[i] -> midia[j] -> cod) == cod){
+                printf("\n\n\nNome - %s\nAlbum - %s\nCompositor - %s\nGenero - %s\nGravadora - %s\n", album[i] -> midia[j] -> nome, 
+                        album[i] -> midia[j] -> album, album[i] -> midia[j] -> compositor, album[i] -> midia[j] -> genero, 
+                        album[i] -> midia[j] -> gravadora);
+                printf("Artista 1 - %s\n",album[i] -> midia[j] -> artista1);
+                if(*(album[i] -> midia[j] -> num_compositores) == 2){
+                    printf("Artista 2 - %s\n",album[i] -> midia[j] -> artista2);
+                }
+                else if(*(album[i] -> midia[j] -> num_compositores) == 3){
+                    printf("Artista 3 - %s\n",album[i] -> midia[j] -> artista3);
+                }
+                printf("Tipo - ");
+                if(*(album[i] -> midia[j] -> tipo) == 1){
+                    printf("Musica\n\n\n");
+                }
+                else if(*(album[i] -> midia[j] -> tipo) == 2){
+                    printf("Video\n\n\n");
+                }
+                if(*(album[i] -> midia[j] -> tipo) == 3){
+                    printf("Podcast\n\n\n");
+                }
+                val = 0;
+            }
+        }
+    }
+    if(val) printf("Codigo nao encontrado\n\n\n");
+}
+
+void AcessaAlbum (int* n_albuns, Album** album, int cod){
+    int i,j;
+    int aux;
+    int val = 1;
+    for (i=0; i<*n_albuns;i++){
+        if(*(album[i] -> cod) == cod){
+            val = 0;
+            for(j=0; j<*(album[i] -> n_midias); j++){
+                Imprimemidia(n_albuns,album,i,j);
+            }
+            break;
+        }
+    }
+    if(val){
+        printf("Codigo nao encontrado\n\n\n");
+        return;
+    }
+    printf("Informe o codigo da midia\n\n-> ");
+    scanf("%d",&aux);
+    scanf("%*c");
+    AcessaMidia (n_albuns,album,cod); 
+}
+
+void PesquisaMidia(int* n_albuns, Album** album){
+    printf("\n1 - Nome\n2 - Album\n3 - Artista\n4 - Compositor\n"
+           "5 - Genero\n6 - Gravadora\n\n  - Tipo:\n\n    7 - Musica\n    8 - Video\n    9 - Podcast\n\n10 - Sair\n\n->");
+    printf("Informe o parametro da pesquisa\n\n->");
+    int aux = 1;
+    int menu;
+    scanf("%d",&menu);
+    scanf("%*c");
+    
+    if (menu == 1){
+        char aux_str[50];
+        scanf("%[^\n]%*c",aux_str);
+        int i, j;
+        for (i=0; i<*n_albuns;i++){
+            for (j=0; j<*(album[i] -> n_midias); j++){
+                if(!strcmp(album[i] -> midia[j] -> nome,aux_str)){
+                    Imprimemidia(n_albuns,album,i,j);
+                    aux = 0;
+                }
+            }
+        }
+        if(aux){
+            printf("Musica nao encontrada\n\n");
+            return;
+        }
+        printf("Digite o codigo da Musica:\n\n->");
+        scanf("%d",&menu);
+        scanf("%*c");
+        AcessaMidia(n_albuns,album,menu);
+    }
+}
+
+void PesquisaAlbum (int* n_albuns, Album** album){
+ 
+    printf("Informe o nome do album\n\n->");
+    int menu, aux = 1;
+    char aux_str[50];
+    scanf("%[^\n]%*c",aux_str);
+    int i;
+    for (i=0; i<*n_albuns;i++){
+        if(!strcmp(album[i] -> nome,aux_str)){
+            ImprimeAlbum(n_albuns,album,i);
+            aux = 0;
+        }
+    }
+    if(aux){
+        printf("Album nao encontrado\n\n");
+        return;
+    }
+    printf("Digite o codigo do Album:\n\n->");
+    scanf("%d",&menu);
+    scanf("%*c");
+    AcessaAlbum (n_albuns,album,menu);
+}
+
+void AtualizaMidia (int* n_albuns, Album** album){
+    printf("Informe o nome da midia a ser atualizada\n\n->");
+    char aux_str[50];
+    int aux = 0;
+    scanf("%[^\n]%*c",aux_str);
+    int i, j;
+    for (i=0; i<*n_albuns;i++){
+        for (j=0; j<*(album[i] -> n_midias); j++){
+            if(!strcmp(album[i] -> midia[j] -> nome,aux_str)){
+                printf("%s",album[i] -> midia[j] -> nome);
+                int aux_lenght;
+                aux_lenght = 20 - strlen(album[i] -> midia[j] -> nome);
+                if(aux_lenght>0){
+                    while(aux_lenght>0){
+                        printf(" ");
+                        aux_lenght--;
+                    }
+                }
+                printf("    ");
+                printf("%s",album[i] -> midia[j] -> album);
+                aux_lenght = 20 - strlen(album[i] -> midia[j] -> album);
+                if(aux_lenght>0){
+                    while(aux_lenght>0){
+                        printf(" ");
+                        aux_lenght--;
+                    }
+                }
+                printf("    ");
+                int m,s;
+                m = (*(album[i] -> midia[j] -> tamanho))/60;
+                s = (*(album[i] -> midia[j] -> tamanho))%60;
+                printf("%02d:%02d",m,s);
+                printf("    ");
+                printf("%03d\n\n",*(album[i] -> midia[j] -> cod));
+                aux = 1;
+            }
+        }
+    }
+    if(aux) printf("Selecione a midia a ser atualizada (codigo)\n->");
+    else{
+        printf("Nao foi encontradas midias relacionadas\n\n");
+        return;
+    }
+    int menu;
+    scanf("%d",&menu);
+    scanf("%*c");
+    for (i=0; i<*n_albuns;i++){
+        for (j=0; j<*(album[i] -> n_midias); j++){
+            if(*(album[i] -> midia[j] -> cod) == menu){
+                printf("Informe o nome da midia:\n");
+                scanf("%[^\n]%*c", album[i] -> midia[j] -> nome);
+                printf("Informe o nome do artista:\n");
+                scanf("%[^\n]%*c", album[i] -> midia[j] -> artista1);
+                printf("A midia possui algum outro artista? [y/n]:\n");
+                char resp;
+                scanf("%[^\n]%*c", &resp);
+                if (resp == 'y'){
+                    printf("Informe o nome do artista:\n");
+                    scanf("%[^\n]%*c", album[i] -> midia[j] -> artista2);
+                    printf("A midia possui algum outro artista? [y/n]:\n");
+                    scanf("%[^\n]%*c", &resp);
+                if (resp == 'y'){
+                        printf("Informe o nome do artista:\n");
+                        scanf("%[^\n]%*c", album[i] -> midia[j] -> artista3);
+                    }
+                }
+                printf("Informe o nome do compositor:\n");
+                scanf("%[^\n]%*c", album[i] -> midia[j] -> compositor);
+                printf("Informe o genero da midia:\n");
+                scanf("%[^\n]%*c", album[i] -> midia[j] -> genero);
+                printf("Informe a gravadora da midia:\n");
+                scanf("%[^\n]%*c", album[i] -> midia[j] -> gravadora);
+                printf("Midia atualizada com sucesso:\n");
+                return;
+            }   
+        }
+    }
+    printf("codigo invalido:\n");
+}
+
+void AtualizaAlbum (int* n_albuns, Album** album){
+    printf("Informe o nome do album a ser atualizada\n\n->");
+    char aux_str[50];
+    int aux = 0;
+    scanf("%[^\n]%*c",aux_str);
+    int i;
+    for (i=0; i<*n_albuns;i++){
+        if(!strcmp(album[i] -> nome,aux_str)){
+            printf("%s",album[i] -> nome);
+            int aux_lenght;
+            aux_lenght = 20 - strlen(album[i] -> nome);
+            if(aux_lenght>0){
+                while(aux_lenght>0){
+                    printf(" ");
+                    aux_lenght--;
+                }
+            }
+            printf("    ");
+            printf("%03d\n",*(album[i] -> cod));
+            aux = 1;
+        }
+    }
+    if(aux) printf("Selecione o album a ser atualizado (codigo)\n->");
+    else{
+        printf("Nao foram encontrados albuns relacionadas\n\n");
+        return;
+    }
+    int menu;
+    scanf("%d",&menu);
+    scanf("%*c");
+    for (i=0; i<*n_albuns;i++){
+        if(*(album[i] -> cod) == menu){
+            printf("Informe o nome do album:\n");
+            scanf("%[^\n]%*c", album[i] -> nome);
+            printf("album atualizada com sucesso:\n");
+            return;
+        }   
+    }
+    printf("codigo invalido:\n");
+}
+    
+void RemoveMidia (int* n_albuns, Album** album){
+    printf("Informe o nome da midia a ser removida\n\n->");
+    char aux_str[50];
+    int aux = 0;
+    scanf("%[^\n]%*c",aux_str);
+    int i, j;
+    for (i=0; i<*n_albuns;i++){
+        for (j=0; j<*(album[i] -> n_midias); j++){
+            if(!strcmp(album[i] -> midia[j] -> nome,aux_str)){
+                printf("%s",album[i] -> midia[j] -> nome);
+                int aux_lenght;
+                aux_lenght = 20 - strlen(album[i] -> midia[j] -> nome);
+                if(aux_lenght>0){
+                    while(aux_lenght>0){
+                        printf(" ");
+                        aux_lenght--;
+                    }
+                }
+                printf("    ");
+                printf("%s",album[i] -> midia[j] -> album);
+                aux_lenght = 20 - strlen(album[i] -> midia[j] -> album);
+                if(aux_lenght>0){
+                    while(aux_lenght>0){
+                        printf(" ");
+                        aux_lenght--;
+                    }
+                }
+                printf("    ");
+                int m,s;
+                m = (*(album[i] -> midia[j] -> tamanho))/60;
+                s = (*(album[i] -> midia[j] -> tamanho))%60;
+                printf("%02d:%02d",m,s);
+                printf("    ");
+                printf("%03d\n\n",*(album[i] -> midia[j] -> cod));
+                aux = 1;
+            }
+        }
+    }
+    if(aux) printf("Selecione a midia a ser removida (codigo)\n->");
+    else{
+        printf("Nao foi encontradas midias relacionadas\n\n");
+        return;
+    }
+    int menu;
+    scanf("%d",&menu);
+    scanf("%*c");
+    for (i=0; i<*n_albuns;i++){
+        for (j=0; j<*(album[i] -> n_midias); j++){
+            if(*(album[i] -> midia[j] -> cod) == menu){
+                Midia* aux_midia;
+                aux_midia = album[i] -> midia[j];
+                album[i] -> midia[j] = album[i] -> midia[*(album[i] -> n_midias)];
+                album[i] -> midia[*(album[i] -> n_midias)] = aux_midia;
+                free(album[i] -> midia[*(album[i] -> n_midias)] -> tipo);
+                free(album[i] -> midia[*(album[i] -> n_midias)] -> nome);
+                free(album[i] -> midia[*(album[i] -> n_midias)] -> gravadora);
+                free(album[i] -> midia[*(album[i] -> n_midias)] -> genero);
+                free(album[i] -> midia[*(album[i] -> n_midias)] -> compositor);
+                free(album[i] -> midia[*(album[i] -> n_midias)] -> cod);
+                free(album[i] -> midia[*(album[i] -> n_midias)] -> artista3);
+                free(album[i] -> midia[*(album[i] -> n_midias)] -> artista2);
+                free(album[i] -> midia[*(album[i] -> n_midias)] -> artista1);
+                free(album[i] -> midia[*(album[i] -> n_midias)] -> album);
+                free(album[i] -> midia[*(album[i] -> n_midias)] -> tamanho);
+                free(album[i] -> midia[*(album[i] -> n_midias)]);
+                (*album[i] -> n_midias)--;
+                printf("Midia removida com sucesso:\n");
+                return;
+            }   
+        }
+    }
+    printf("codigo invalido:\n");
+}
+
+void RemoveAlbum (int* n_albuns, Album** album){
+    printf("Informe o nome do album a ser removido\n\n->");
+    char aux_str[50];
+    int aux = 0;
+    scanf("%[^\n]%*c",aux_str);
+    int i,j;
+    for (i=0; i<*n_albuns;i++){
+        if(!strcmp(album[i] -> nome,aux_str)){
+            printf("%s",album[i] -> nome);
+            int aux_lenght;
+            aux_lenght = 20 - strlen(album[i] -> nome);
+            if(aux_lenght>0){
+                while(aux_lenght>0){
+                    printf(" ");
+                    aux_lenght--;
+                }
+            }
+            printf("    ");
+            printf("%03d\n",*(album[i] -> cod));
+            aux = 1;
+        }
+    }
+    if(aux) printf("Selecione o album a ser removido (codigo)\n->");
+    else{
+        printf("Nao foram encontrados albuns relacionadas\n\n");
+        return;
+    }
+    int menu;
+    scanf("%d",&menu);
+    for (i=0; i<*n_albuns;i++){
+        if(*(album[i] -> cod) == menu){
+            Album* aux_album;
+            aux_album = album[i];
+            album[i] = album[*n_albuns];
+            album[*n_albuns] = aux_album;
+            free(album[*n_albuns] -> cod);
+            free(album[*n_albuns] -> nome);
+            for(j=0;j<*(album[*n_albuns] -> n_midias);j++){
+                free(album[*n_albuns] -> midia[j] -> nome);
+                free(album[*n_albuns] -> midia[j] -> gravadora);
+                free(album[*n_albuns] -> midia[j] -> genero);
+                free(album[*n_albuns] -> midia[j] -> compositor);
+                free(album[*n_albuns] -> midia[j] -> cod);
+                free(album[*n_albuns] -> midia[j] -> artista3);
+                free(album[*n_albuns] -> midia[j] -> artista2);
+                free(album[*n_albuns] -> midia[j] -> artista1);
+                free(album[*n_albuns] -> midia[j] -> album);
+                free(album[*n_albuns] -> midia[j] -> tamanho);
+                free(album[*n_albuns] -> midia[j]);
+            }
+            free(album[*n_albuns] -> n_midias);
+            free(album[*n_albuns]);
+            printf("Album removido com sucesso:\n");
+            return;
+        }   
+    }
+    printf("codigo invalido:\n");
+}
+
+void AdicionaUsuario(User** usuarios, int* n_usuarios) {
+    Playlist** aux_playlist;
+    usuarios[*n_usuarios] = (User*) malloc (sizeof(User));
+    if (usuarios[*n_usuarios] == NULL){
+        printf("Nao foi possivel criar o user\n");
+        return;
+    }
+    usuarios[*n_usuarios] -> nome = (char*) malloc(sizeof(char)*20);
+    if (usuarios[*n_usuarios] -> nome == NULL){
+        free(usuarios[*n_usuarios]);
+        printf("Nao foi possivel criar o user\n");
+        return;
+    }
+    usuarios[*n_usuarios] -> num_playlists = (int*) malloc(sizeof(int));
+    if (usuarios[*n_usuarios] -> num_playlists == NULL){
+        free(usuarios[*n_usuarios] -> nome);
+        free(usuarios[*n_usuarios]);
+        printf("Nao foi possivel criar o user\n");
+        return;
+    }
+    printf("Digite o nome do user:\n->");
+    scanf("%[^\n]%*c", usuarios[*n_usuarios] -> nome);
+    if(!strcmp(usuarios[*n_usuarios] -> nome , "admin")){
+        free(usuarios[*n_usuarios] -> nome);
+        free(usuarios[*n_usuarios] -> num_playlists);
+        free(usuarios[*n_usuarios]);
+        printf("Nao foi possivel criar o user\n");
+        return;
+    } 
+    *(usuarios[*n_usuarios] -> num_playlists) = 0;
+    (*n_usuarios)++;
+}
+
+void AtualizaUsuario(User** usuarios, int* n_usuarios){
+    printf("Digite o nome do user:\n->");
+    char aux_user[20];
+    scanf("%[^\n]%*c",aux_user);
+    int i;
+    for (i=0; i<*n_usuarios;i++){
+        if(!strcmp(aux_user,usuarios[i] -> nome)){
+            printf("Digite o novo nome do user:\n->");
+            scanf("%[^\n]%*c", usuarios[i] -> nome);
+            printf("User alterado com sucesso:\n");
+            return;
+        }   
+    }
+    printf("Nome de user nao encontrado\n");
+}
+
+void RemoveUsuario(User** usuarios, int* n_usuarios){
+    printf("Digite o nome do user:\n->");
+    char aux_user[20];
+    scanf("%[^\n]%*c",aux_user);
+    int i;
+    int j;
+    for (i=0; i<*n_usuarios;i++){
+        if(!strcmp(aux_user,usuarios[i]-> nome)){
+            User* aux_user;
+            aux_user = usuarios[i];
+            usuarios[i] = usuarios[*n_usuarios];
+            usuarios[*n_usuarios] = aux_user;
+            free(usuarios[*n_usuarios] -> nome);
+            for(j=0;j<*(usuarios[*n_usuarios] -> num_playlists);j++){
+                free(usuarios[*n_usuarios] -> playlist[j] -> n_midias);
+                free(usuarios[*n_usuarios] -> playlist[j] -> tipo);
+            }
+            free(usuarios[*n_usuarios] -> num_playlists);
+            free(usuarios[*n_usuarios]);
+            (*n_usuarios)--;
+            printf("User removido com sucesso:\n");
+            return;
+        }   
+    }
+    printf("Nome de user nao encontrado\n");
+}
+
+void AdicionaPlaylist(User** usuarios, char* current_user, int* n_usuarios){
+    int i;
+    char* aux_string;
+    int* aux_int;
+    int* aux_int2;
+    Playlist* aux_playlist[20];
+    for(i=0; i<*(n_usuarios); i++){
+        aux_string = EnderecoNomeUser(usuarios,i);
+        if(!(strcmp(aux_string,current_user))){
+            aux_int = EnderecoNumeroPlaylistsUser(usuarios,i);
+            aux_playlist[*aux_int] = malloc (sizeof(Playlist));
+            RecebeEnderecoPlaylistUser(usuarios,i,*aux_int,aux_playlist);
+            aux_int2 = (int*) malloc (sizeof(int));
+            *aux_int2 = 0;
+            RecebeEnderecoNMidiasPlaylistUser(usuarios,i,*aux_int,aux_int2);
+            aux_int2 = malloc(sizeof(int));
+            printf("Digite o tipo da playlist:\n\n-> ");
+            scanf("%d",aux_int2);
+            scanf("%*c");
+            RecebeEnderecoTipoPlaylistUser(usuarios,i,*aux_int,aux_int2);
+            aux_string = malloc (sizeof(char)*20);
+            printf("Digite o nome da playlist:\n\n-> ");
+            scanf("%[^\n]%*c",aux_string);
+            RecebeEnderecoNomePlaylistUser(usuarios,i,*aux_int,aux_string);
+            (*aux_int)++;
+        }
+    }
+}
+
+void PesquisaPlaylist(User** usuarios, int* n_usuarios){
+    int i,j;
+    char aux_string1[20];
+    char* aux_string2;
+    int* aux_int;
+    printf("Digite o nome da playlist:\n\n-> ");
+    scanf("%[^\n]%*c",aux_string1);
+    for(i=0; i<*n_usuarios; i++){
+        aux_int = EnderecoNumeroPlaylistsUser(usuarios,i);
+        for(j=0;j<*aux_int;j++){
+            aux_string2 = EnderecoNomePlaylistUser(usuarios,i,j);
+            if(!(strcmp(aux_string1,aux_string2))){
+                printf("%s\n",aux_string1);
+            }
+        }
+    }
+}
+
+int main(){
+
+    int* n_albuns, *n_usuarios, *n_total_midias;
+    Album** album;
+    User** usuarios;
+    int num_menu, i, j, ini = 1;
+    char current_user[20];
+
+    n_albuns = (int*) malloc (sizeof(int));
+    n_usuarios = (int*) malloc (sizeof(int));
+    n_total_midias = (int*) malloc (sizeof(int));
+    album = malloc (sizeof(Album*));
+    usuarios = malloc (sizeof(User*));
+    
+    *n_total_midias = 0;
+    *n_albuns = 0;
+    *n_usuarios = 0;
+   
+    
+    while(1){
+        printf("Bem Vindo ao UFES Music, por favor selecione ou crie um user para iniciar:\n\n");
+        printf("1 - Acessar user\n2 - Adicionar user\n3 - Atualizar user\n4 - Remover user\n5 - Sair\n\n->");
+        scanf("%d",&num_menu);
+        scanf("%*c");
+        if(num_menu == 1){
+            printf("Digite o nome do user:\n->");
+            scanf("%[^\n]%*c",current_user);
+            if(!strcmp(current_user,"admin")){
+                while(1){
+                    printf("Gerenciador de dados:\n\n");
+                    printf("1 - Adicionar midia\n2 - Atualizar midia\n3 - Remover midia\n4 - Atualizar album\n"
+                           "5 - Remover album\n6 - Sair\n\n->");
+                    scanf("%d",&num_menu);
+                    scanf("%*c");
+                    if(num_menu == 1){
+                        AdicionaMidia (n_albuns,album,n_total_midias);
+                    }
+                    else if(num_menu == 2){
+                        AtualizaMidia (n_albuns,album);
+                    }
+                    else if(num_menu == 3){
+                        RemoveMidia (n_albuns,album);
+                    }
+                    else if(num_menu == 4){
+                        AtualizaAlbum (n_albuns,album);
+                    }
+                    else if(num_menu == 5){
+                        RemoveAlbum (n_albuns,album);
+                    }
+                    else if (num_menu == 7){
+                        AdicionaMidiaArquivo (n_albuns,album,n_total_midias);
+                    }
+                    if(num_menu == 6){
+                        ini = 0;
+                        break;
+                    }
+                }               
+            }
+            else{
+                for(i=0;i<*n_usuarios;i++){
+                    if(!strcmp(usuarios[i] -> nome,current_user)){                 
+                        while(1){
+                            ini = 0;
+                            printf("Bem Vindo %s\n\n",current_user);
+                            printf("1 - Pesquisar midia\n2 - Pesquisar album\n3 - Pesquisar Playlist\n4 - Adicionar playlist\n"
+                                   "5 - Adicionar user na playlist\n6 - Adicionar midia na playlist\n7 - Remover playlist\n"
+                                   "8 - Minhas playlists\n9 - Sair\n\n->");
+                            scanf("%d",&num_menu);
+                            scanf("%*c");
+                            if(num_menu == 1){
+                                PesquisaMidia(n_albuns,album);
+                            }
+                            else if(num_menu == 2){
+                                PesquisaAlbum (n_albuns,album);
+                            }
+                            else if(num_menu == 3){
+                                PesquisaPlaylist (usuarios,n_usuarios);
+                            }
+                            else if(num_menu == 4){
+                                AdicionaPlaylist (usuarios,current_user,n_usuarios);
+                            }
+                            if(num_menu == 9){
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if(ini) printf("Nome de user nao encontrado\n");
+        }
+        else if(num_menu == 2){
+            AdicionaUsuario(usuarios,n_usuarios);
+        }
+        else if(num_menu == 3){
+            AtualizaUsuario(usuarios,n_usuarios);
+        }
+        else if(num_menu == 4){
+            RemoveUsuario(usuarios,n_usuarios);
+        }
+        else if(num_menu == 5){
+            return 0;
+        }
+    }
+    return 0;
+}
+
+/*  Adicionar midia
+    Pesquisar midia
+    Atualizar midia
+    Remover midia
+    Pesquisar album
+    Atualizar album
+    remover album
+    Pesquisar playlist
+    Adicionar User
+    Pesquisar User
+    Atualizar User
+    Remover User
+    Acessar User
+        Adicionar playlist
+        Adicionar usuario na playlist
+        Atualizar Playlist
+        Remover Playlist
+ *      minhas playlists
+ *      
+*/
+
+/*adicionar uma musica*/
